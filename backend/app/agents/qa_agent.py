@@ -3,7 +3,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Any
 
-from backend.app.memory.local_store import LocalMemoryStore
+from backend.app.memory.hindsight_store import HindsightMemoryStore
 
 
 @dataclass
@@ -17,7 +17,7 @@ class QAAnswer:
 
 class QAAgent:
     """
-    Evidence-grounded Q&A over the local development memory store.
+    Evidence-grounded Q&A over Hindsight-backed codebase memory.
 
     Rules:
     - Use only retrieved memories.
@@ -26,10 +26,14 @@ class QAAgent:
     - Return NOT DOCUMENTED when no relevant memory exists.
     """
 
-    def __init__(self, store: LocalMemoryStore):
+    def __init__(self, store: HindsightMemoryStore):
         self.store = store
 
-    def ask(self, question: str, memory_enabled: bool = True) -> QAAnswer:
+    async def ask(
+        self,
+        question: str,
+        memory_enabled: bool = True,
+    ) -> QAAnswer:
         question = question.strip()
 
         if not question:
@@ -53,7 +57,7 @@ class QAAgent:
                 citations=[],
             )
 
-        memories = self.store.search(question)
+        memories = await self.store.search(question)
 
         if not memories:
             return QAAnswer(
@@ -86,11 +90,26 @@ class QAAgent:
 
         primary = grounded_memories[0]
 
-        title = str(primary.get("title", "Documented decision"))
-        rationale = str(primary.get("rationale", "")).strip()
+        title = str(
+            primary.get(
+                "title",
+                "Documented decision",
+            )
+        )
+
+        rationale = str(
+            primary.get("rationale", "")
+        ).strip()
+
         evidence = primary.get("evidence", {})
-        quote = str(evidence.get("quote", "")).strip()
-        source_url = str(evidence.get("source_url", "")).strip()
+
+        quote = str(
+            evidence.get("quote", "")
+        ).strip()
+
+        source_url = str(
+            evidence.get("source_url", "")
+        ).strip()
 
         answer = (
             f"{title}\n\n"
@@ -105,9 +124,17 @@ class QAAgent:
                 {
                     "source_url": source_url,
                     "source_type": str(
-                        evidence.get("source_type", "unknown")
+                        evidence.get(
+                            "source_type",
+                            "unknown",
+                        )
                     ),
-                    "source_id": str(evidence.get("source_id", "")),
+                    "source_id": str(
+                        evidence.get(
+                            "source_id",
+                            "",
+                        )
+                    ),
                 }
             )
 

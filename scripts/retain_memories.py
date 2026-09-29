@@ -118,6 +118,8 @@ async def main() -> None:
         )
 
     print()
+    await service.close()
+
     print("===== COMPLETE =====")
 
 

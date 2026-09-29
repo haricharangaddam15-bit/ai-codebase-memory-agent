@@ -1,12 +1,14 @@
 from __future__ import annotations
 
 import json
+import asyncio
 import sys
 from pathlib import Path
 from typing import Any
 
 from backend.app.agents.qa_agent import QAAgent
-from backend.app.memory.local_store import LocalMemoryStore
+from backend.app.memory.hindsight_store import HindsightMemoryStore
+from backend.app.services.hindsight_service import HindsightService
 
 
 ROOT = Path(__file__).resolve().parents[3]
@@ -33,11 +35,11 @@ def contains_evidence(memory: dict[str, Any]) -> bool:
     return bool(quote and source_url)
 
 
-def evaluate_memory_on(
+async def evaluate_memory_on(
     agent: QAAgent,
     item: dict[str, Any],
 ) -> dict[str, Any]:
-    result = agent.ask(
+    result = await agent.ask(
         question=item["question"],
         memory_enabled=True,
     )
@@ -109,11 +111,11 @@ def evaluate_memory_on(
     }
 
 
-def evaluate_memory_off(
+async def evaluate_memory_off(
     agent: QAAgent,
     item: dict[str, Any],
 ) -> dict[str, Any]:
-    result = agent.ask(
+    result = await agent.ask(
         question=item["question"],
         memory_enabled=False,
     )
@@ -266,21 +268,70 @@ def render_markdown(report: dict[str, Any]) -> str:
     return "\n".join(lines) + "\n"
 
 
-def main() -> int:
+async def main() -> int:
     dataset = load_dataset()
 
-    store = LocalMemoryStore(str(MEMORY_FILE))
+    hindsight_service = HindsightService(
+        base_url="http://127.0.0.1:8888",
+        bank_id="codebase-memory-evaluation",
+    )
+
+    await hindsight_service.create_bank(
+        name="AI Codebase Memory Evaluation",
+        retain_mission=(
+            "Remember only documented codebase decisions and their evidence."
+        ),
+        reflect_mission=(
+            "Answer evaluation questions using only documented memories "
+            "and their evidence."
+        ),
+    )
+
+    canonical_data = json.loads(
+        MEMORY_FILE.read_text(encoding="utf-8")
+    )
+
+    for memory in canonical_data["memories"]:
+        evidence = memory.get("evidence", {})
+
+        await hindsight_service.retain(
+            content=(
+                f"Title: {memory.get('title', '')}\\n"
+                f"Summary: {memory.get('summary', '')}\\n"
+                f"Rationale: {memory.get('rationale', '')}\\n"
+                f"Evidence: {evidence.get('quote', '')}\\n"
+                f"Module: {memory.get('module', '')}\\n"
+                f"Status: {memory.get('status', 'active')}"
+            ),
+            document_id=(
+                "evaluation-"
+                + str(evidence.get("source_id", ""))
+            ),
+            metadata={
+                "memory_type": memory.get("memory_type", ""),
+                "status": memory.get("status", "active"),
+                "module": memory.get("module", ""),
+                "source_url": evidence.get("source_url", ""),
+                "source_id": str(evidence.get("source_id", "")),
+                "source_type": evidence.get("source_type", ""),
+            },
+            tags=["evaluation", "decision"],
+        )
+    store = HindsightMemoryStore(
+        memory_path=str(MEMORY_FILE),
+        hindsight_service=hindsight_service,
+    )
     agent = QAAgent(store)
 
     questions = dataset["questions"]
 
     memory_on = [
-        evaluate_memory_on(agent, item)
+        await evaluate_memory_on(agent, item)
         for item in questions
     ]
 
     memory_off = [
-        evaluate_memory_off(agent, item)
+        await evaluate_memory_off(agent, item)
         for item in questions
     ]
 
@@ -288,7 +339,7 @@ def main() -> int:
         "version": 1,
         "dataset_version": dataset.get("version"),
         "memory_file": str(MEMORY_FILE),
-        "memory_count": len(store.load()),
+        "memory_count": len(json.loads(MEMORY_FILE.read_text(encoding="utf-8"))["memories"]),
         "summary": build_summary(memory_on, memory_off),
         "memory_on": memory_on,
         "memory_off": memory_off,
@@ -337,8 +388,10 @@ def main() -> int:
     print(f"JSON report: {JSON_REPORT}")
     print(f"Markdown report: {MARKDOWN_REPORT}")
 
+    await hindsight_service.close()
+
     return 0 if summary["all_passed"] else 1
 
 
 if __name__ == "__main__":
-    sys.exit(main())
+    sys.exit(asyncio.run(main()))

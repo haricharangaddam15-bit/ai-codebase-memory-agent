@@ -14,6 +14,8 @@ from backend.app.schemas.capture import (
     CaptureReviewRequest,
 )
 from backend.app.memory.local_store import LocalMemoryStore
+from backend.app.memory.hindsight_store import HindsightMemoryStore
+from backend.app.services.hindsight_service import HindsightService
 from backend.app.schemas.qa import AskRequest, AskResponse
 from backend.app.schemas.review import (
     PRReviewRequest,
@@ -37,7 +39,27 @@ MEMORY_FILE = (
 )
 
 memory_store = LocalMemoryStore(str(MEMORY_FILE))
-qa_agent = QAAgent(memory_store)
+
+hindsight_service = HindsightService(
+    base_url=os.getenv(
+        "HINDSIGHT_API_URL",
+        "http://127.0.0.1:8888",
+    ),
+    bank_id=os.getenv(
+        "HINDSIGHT_BANK_ID",
+        "codebase-memory",
+    ),
+    api_key=os.getenv(
+        "HINDSIGHT_API_KEY",
+    ),
+)
+
+hindsight_memory_store = HindsightMemoryStore(
+    memory_path=str(MEMORY_FILE),
+    hindsight_service=hindsight_service,
+)
+
+qa_agent = QAAgent(hindsight_memory_store)
 pr_review_agent = PRReviewAgent()
 capture_agent = CaptureAgent()
 CAPTURE_FILE = (
@@ -58,8 +80,8 @@ def status():
 
 
 @router.post("/ask", response_model=AskResponse)
-def ask(request: AskRequest):
-    result = qa_agent.ask(
+async def ask(request: AskRequest):
+    result = await qa_agent.ask(
         question=request.question,
         memory_enabled=request.memory_enabled,
     )

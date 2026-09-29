@@ -75,6 +75,10 @@ class HindsightService:
             budget=budget,
         )
 
+    async def close(self) -> None:
+        """Close the underlying Hindsight HTTP client."""
+        await self.client.aclose()
+
     async def create_bank(
         self,
         *,
