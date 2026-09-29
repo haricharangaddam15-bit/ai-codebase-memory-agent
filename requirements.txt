@@ -1,0 +1,14 @@
+fastapi
+uvicorn[standard]
+pydantic
+pydantic-settings
+python-dotenv
+httpx
+PyGithub
+hindsight-client
+openai
+anthropic
+sqlalchemy
+aiosqlite
+pytest
+pytest-asyncio
