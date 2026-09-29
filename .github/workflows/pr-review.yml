@@ -1,0 +1,50 @@
+name: AI Codebase Memory PR Review
+
+on:
+  pull_request:
+    types:
+      - opened
+      - synchronize
+      - reopened
+
+permissions:
+  contents: read
+  pull-requests: read
+
+jobs:
+  review:
+    name: Evidence-Grounded PR Review
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run AI Codebase Memory PR Review
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+        run: |
+          PYTHONPATH=. python scripts/run_github_pr_review.py
+
+      - name: Add review summary
+        if: always()
+        run: |
+          if [ -f review-result.md ]; then
+            cat review-result.md >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "## AI Codebase Memory PR Review" >> "$GITHUB_STEP_SUMMARY"
+            echo "" >> "$GITHUB_STEP_SUMMARY"
+            echo "Review result was not generated." >> "$GITHUB_STEP_SUMMARY"
+          fi
