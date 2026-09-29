@@ -1,0 +1,870 @@
+{
+  "version": 1,
+  "dataset_version": 1,
+  "memory_file": "/Users/haricharanreddygaddam/ai-codebase-memory-agent/data/memory/memories.json",
+  "memory_count": 2,
+  "summary": {
+    "questions": 20,
+    "memory_on_passed": 20,
+    "memory_on_total": 20,
+    "memory_off_passed": 20,
+    "memory_off_total": 20,
+    "documented_expected_passed": 14,
+    "documented_expected_total": 14,
+    "not_documented_expected_passed": 6,
+    "not_documented_expected_total": 6,
+    "all_passed": true
+  },
+  "memory_on": [
+    {
+      "id": "Q01",
+      "question": "Why did we choose FastAPI?",
+      "expected": {
+        "type": "documented",
+        "memory_title": "Architecture: choose FastAPI for backend",
+        "source_id": "1"
+      },
+      "actual": {
+        "documented": true,
+        "answer": "Architecture: choose FastAPI for backend\n\nRationale:\nFastAPI was selected because the project needs:\n\n- typed request and response models\n- asynchronous API endpoints\n- automatic OpenAPI documentation\n- strong integration with Pydantic\n\nThe typed API contracts are particularly useful because the ingestion,\nmemory, and Q&A layers exchange structured data.\n\nEvidence:\nFastAPI was selected because the project needs:\n\n- typed request and response models\n- asynchronous API endpoints\n- automatic OpenAPI documentation\n- strong integration with Pydantic\n\nThe typed API contracts are particularly useful because the ingestion,\nmemory, and Q&A layers exchange structured data.",
+        "memory_count": 1,
+        "citation_count": 1,
+        "memory_titles": [
+          "Architecture: choose FastAPI for backend"
+        ],
+        "citation_source_ids": [
+          "1"
+        ]
+      },
+      "checks": {
+        "documented_status": true,
+        "memory_match": true,
+        "citation_match": true,
+        "evidence_present": true
+      },
+      "passed": true
+    },
+    {
+      "id": "Q02",
+      "question": "Why was FastAPI selected for the backend?",
+      "expected": {
+        "type": "documented",
+        "memory_title": "Architecture: choose FastAPI for backend",
+        "source_id": "1"
+      },
+      "actual": {
+        "documented": true,
+        "answer": "Architecture: choose FastAPI for backend\n\nRationale:\nFastAPI was selected because the project needs:\n\n- typed request and response models\n- asynchronous API endpoints\n- automatic OpenAPI documentation\n- strong integration with Pydantic\n\nThe typed API contracts are particularly useful because the ingestion,\nmemory, and Q&A layers exchange structured data.\n\nEvidence:\nFastAPI was selected because the project needs:\n\n- typed request and response models\n- asynchronous API endpoints\n- automatic OpenAPI documentation\n- strong integration with Pydantic\n\nThe typed API contracts are particularly useful because the ingestion,\nmemory, and Q&A layers exchange structured data.",
+        "memory_count": 2,
+        "citation_count": 1,
+        "memory_titles": [
+          "Architecture: choose FastAPI for backend",
+          "Architecture: choose PostgreSQL"
+        ],
+        "citation_source_ids": [
+          "1"
+        ]
+      },
+      "checks": {
+        "documented_status": true,
+        "memory_match": true,
+        "citation_match": true,
+        "evidence_present": true
+      },
+      "passed": true
+    },
+    {
+      "id": "Q03",
+      "question": "What was the reason for choosing FastAPI?",
+      "expected": {
+        "type": "documented",
+        "memory_title": "Architecture: choose FastAPI for backend",
+        "source_id": "1"
+      },
+      "actual": {
+        "documented": true,
+        "answer": "Architecture: choose FastAPI for backend\n\nRationale:\nFastAPI was selected because the project needs:\n\n- typed request and response models\n- asynchronous API endpoints\n- automatic OpenAPI documentation\n- strong integration with Pydantic\n\nThe typed API contracts are particularly useful because the ingestion,\nmemory, and Q&A layers exchange structured data.\n\nEvidence:\nFastAPI was selected because the project needs:\n\n- typed request and response models\n- asynchronous API endpoints\n- automatic OpenAPI documentation\n- strong integration with Pydantic\n\nThe typed API contracts are particularly useful because the ingestion,\nmemory, and Q&A layers exchange structured data.",
+        "memory_count": 1,
+        "citation_count": 1,
+        "memory_titles": [
+          "Architecture: choose FastAPI for backend"
+        ],
+        "citation_source_ids": [
+          "1"
+        ]
+      },
+      "checks": {
+        "documented_status": true,
+        "memory_match": true,
+        "citation_match": true,
+        "evidence_present": true
+      },
+      "passed": true
+    },
+    {
+      "id": "Q04",
+      "question": "Why does the project use FastAPI?",
+      "expected": {
+        "type": "documented",
+        "memory_title": "Architecture: choose FastAPI for backend",
+        "source_id": "1"
+      },
+      "actual": {
+        "documented": true,
+        "answer": "Architecture: choose FastAPI for backend\n\nRationale:\nFastAPI was selected because the project needs:\n\n- typed request and response models\n- asynchronous API endpoints\n- automatic OpenAPI documentation\n- strong integration with Pydantic\n\nThe typed API contracts are particularly useful because the ingestion,\nmemory, and Q&A layers exchange structured data.\n\nEvidence:\nFastAPI was selected because the project needs:\n\n- typed request and response models\n- asynchronous API endpoints\n- automatic OpenAPI documentation\n- strong integration with Pydantic\n\nThe typed API contracts are particularly useful because the ingestion,\nmemory, and Q&A layers exchange structured data.",
+        "memory_count": 1,
+        "citation_count": 1,
+        "memory_titles": [
+          "Architecture: choose FastAPI for backend"
+        ],
+        "citation_source_ids": [
+          "1"
+        ]
+      },
+      "checks": {
+        "documented_status": true,
+        "memory_match": true,
+        "citation_match": true,
+        "evidence_present": true
+      },
+      "passed": true
+    },
+    {
+      "id": "Q05",
+      "question": "What rationale was documented for the FastAPI decision?",
+      "expected": {
+        "type": "documented",
+        "memory_title": "Architecture: choose FastAPI for backend",
+        "source_id": "1"
+      },
+      "actual": {
+        "documented": true,
+        "answer": "Architecture: choose FastAPI for backend\n\nRationale:\nFastAPI was selected because the project needs:\n\n- typed request and response models\n- asynchronous API endpoints\n- automatic OpenAPI documentation\n- strong integration with Pydantic\n\nThe typed API contracts are particularly useful because the ingestion,\nmemory, and Q&A layers exchange structured data.\n\nEvidence:\nFastAPI was selected because the project needs:\n\n- typed request and response models\n- asynchronous API endpoints\n- automatic OpenAPI documentation\n- strong integration with Pydantic\n\nThe typed API contracts are particularly useful because the ingestion,\nmemory, and Q&A layers exchange structured data.",
+        "memory_count": 1,
+        "citation_count": 1,
+        "memory_titles": [
+          "Architecture: choose FastAPI for backend"
+        ],
+        "citation_source_ids": [
+          "1"
+        ]
+      },
+      "checks": {
+        "documented_status": true,
+        "memory_match": true,
+        "citation_match": true,
+        "evidence_present": true
+      },
+      "passed": true
+    },
+    {
+      "id": "Q06",
+      "question": "Why were typed request and response models relevant to the backend framework decision?",
+      "expected": {
+        "type": "documented",
+        "memory_title": "Architecture: choose FastAPI for backend",
+        "source_id": "1"
+      },
+      "actual": {
+        "documented": true,
+        "answer": "Architecture: choose FastAPI for backend\n\nRationale:\nFastAPI was selected because the project needs:\n\n- typed request and response models\n- asynchronous API endpoints\n- automatic OpenAPI documentation\n- strong integration with Pydantic\n\nThe typed API contracts are particularly useful because the ingestion,\nmemory, and Q&A layers exchange structured data.\n\nEvidence:\nFastAPI was selected because the project needs:\n\n- typed request and response models\n- asynchronous API endpoints\n- automatic OpenAPI documentation\n- strong integration with Pydantic\n\nThe typed API contracts are particularly useful because the ingestion,\nmemory, and Q&A layers exchange structured data.",
+        "memory_count": 2,
+        "citation_count": 1,
+        "memory_titles": [
+          "Architecture: choose FastAPI for backend",
+          "Architecture: choose PostgreSQL"
+        ],
+        "citation_source_ids": [
+          "1"
+        ]
+      },
+      "checks": {
+        "documented_status": true,
+        "memory_match": true,
+        "citation_match": true,
+        "evidence_present": true
+      },
+      "passed": true
+    },
+    {
+      "id": "Q07",
+      "question": "Why were asynchronous API endpoints part of the FastAPI decision?",
+      "expected": {
+        "type": "documented",
+        "memory_title": "Architecture: choose FastAPI for backend",
+        "source_id": "1"
+      },
+      "actual": {
+        "documented": true,
+        "answer": "Architecture: choose FastAPI for backend\n\nRationale:\nFastAPI was selected because the project needs:\n\n- typed request and response models\n- asynchronous API endpoints\n- automatic OpenAPI documentation\n- strong integration with Pydantic\n\nThe typed API contracts are particularly useful because the ingestion,\nmemory, and Q&A layers exchange structured data.\n\nEvidence:\nFastAPI was selected because the project needs:\n\n- typed request and response models\n- asynchronous API endpoints\n- automatic OpenAPI documentation\n- strong integration with Pydantic\n\nThe typed API contracts are particularly useful because the ingestion,\nmemory, and Q&A layers exchange structured data.",
+        "memory_count": 1,
+        "citation_count": 1,
+        "memory_titles": [
+          "Architecture: choose FastAPI for backend"
+        ],
+        "citation_source_ids": [
+          "1"
+        ]
+      },
+      "checks": {
+        "documented_status": true,
+        "memory_match": true,
+        "citation_match": true,
+        "evidence_present": true
+      },
+      "passed": true
+    },
+    {
+      "id": "Q08",
+      "question": "Why was Pydantic integration relevant when choosing the backend framework?",
+      "expected": {
+        "type": "documented",
+        "memory_title": "Architecture: choose FastAPI for backend",
+        "source_id": "1"
+      },
+      "actual": {
+        "documented": true,
+        "answer": "Architecture: choose FastAPI for backend\n\nRationale:\nFastAPI was selected because the project needs:\n\n- typed request and response models\n- asynchronous API endpoints\n- automatic OpenAPI documentation\n- strong integration with Pydantic\n\nThe typed API contracts are particularly useful because the ingestion,\nmemory, and Q&A layers exchange structured data.\n\nEvidence:\nFastAPI was selected because the project needs:\n\n- typed request and response models\n- asynchronous API endpoints\n- automatic OpenAPI documentation\n- strong integration with Pydantic\n\nThe typed API contracts are particularly useful because the ingestion,\nmemory, and Q&A layers exchange structured data.",
+        "memory_count": 2,
+        "citation_count": 1,
+        "memory_titles": [
+          "Architecture: choose FastAPI for backend",
+          "Architecture: choose PostgreSQL"
+        ],
+        "citation_source_ids": [
+          "1"
+        ]
+      },
+      "checks": {
+        "documented_status": true,
+        "memory_match": true,
+        "citation_match": true,
+        "evidence_present": true
+      },
+      "passed": true
+    },
+    {
+      "id": "Q09",
+      "question": "What alternatives were considered for the backend framework?",
+      "expected": {
+        "type": "documented",
+        "memory_title": "Architecture: choose FastAPI for backend",
+        "source_id": "1"
+      },
+      "actual": {
+        "documented": true,
+        "answer": "Architecture: choose FastAPI for backend\n\nRationale:\nFastAPI was selected because the project needs:\n\n- typed request and response models\n- asynchronous API endpoints\n- automatic OpenAPI documentation\n- strong integration with Pydantic\n\nThe typed API contracts are particularly useful because the ingestion,\nmemory, and Q&A layers exchange structured data.\n\nEvidence:\nFastAPI was selected because the project needs:\n\n- typed request and response models\n- asynchronous API endpoints\n- automatic OpenAPI documentation\n- strong integration with Pydantic\n\nThe typed API contracts are particularly useful because the ingestion,\nmemory, and Q&A layers exchange structured data.",
+        "memory_count": 2,
+        "citation_count": 1,
+        "memory_titles": [
+          "Architecture: choose FastAPI for backend",
+          "Architecture: choose PostgreSQL"
+        ],
+        "citation_source_ids": [
+          "1"
+        ]
+      },
+      "checks": {
+        "documented_status": true,
+        "memory_match": true,
+        "citation_match": true,
+        "evidence_present": true
+      },
+      "passed": true
+    },
+    {
+      "id": "Q10",
+      "question": "Why was PostgreSQL chosen?",
+      "expected": {
+        "type": "documented",
+        "memory_title": "Architecture: choose PostgreSQL",
+        "source_id": "pr-99"
+      },
+      "actual": {
+        "documented": true,
+        "answer": "Architecture: choose PostgreSQL\n\nRationale:\nbecause we need transactional consistency and typed relational data.\n\nEvidence:\nWe decided to use PostgreSQL because we need transactional consistency and typed relational data.",
+        "memory_count": 1,
+        "citation_count": 1,
+        "memory_titles": [
+          "Architecture: choose PostgreSQL"
+        ],
+        "citation_source_ids": [
+          "pr-99"
+        ]
+      },
+      "checks": {
+        "documented_status": true,
+        "memory_match": true,
+        "citation_match": true,
+        "evidence_present": true
+      },
+      "passed": true
+    },
+    {
+      "id": "Q11",
+      "question": "Why does the project use PostgreSQL?",
+      "expected": {
+        "type": "documented",
+        "memory_title": "Architecture: choose PostgreSQL",
+        "source_id": "pr-99"
+      },
+      "actual": {
+        "documented": true,
+        "answer": "Architecture: choose PostgreSQL\n\nRationale:\nbecause we need transactional consistency and typed relational data.\n\nEvidence:\nWe decided to use PostgreSQL because we need transactional consistency and typed relational data.",
+        "memory_count": 1,
+        "citation_count": 1,
+        "memory_titles": [
+          "Architecture: choose PostgreSQL"
+        ],
+        "citation_source_ids": [
+          "pr-99"
+        ]
+      },
+      "checks": {
+        "documented_status": true,
+        "memory_match": true,
+        "citation_match": true,
+        "evidence_present": true
+      },
+      "passed": true
+    },
+    {
+      "id": "Q12",
+      "question": "What was the rationale for choosing PostgreSQL?",
+      "expected": {
+        "type": "documented",
+        "memory_title": "Architecture: choose PostgreSQL",
+        "source_id": "pr-99"
+      },
+      "actual": {
+        "documented": true,
+        "answer": "Architecture: choose PostgreSQL\n\nRationale:\nbecause we need transactional consistency and typed relational data.\n\nEvidence:\nWe decided to use PostgreSQL because we need transactional consistency and typed relational data.",
+        "memory_count": 1,
+        "citation_count": 1,
+        "memory_titles": [
+          "Architecture: choose PostgreSQL"
+        ],
+        "citation_source_ids": [
+          "pr-99"
+        ]
+      },
+      "checks": {
+        "documented_status": true,
+        "memory_match": true,
+        "citation_match": true,
+        "evidence_present": true
+      },
+      "passed": true
+    },
+    {
+      "id": "Q13",
+      "question": "Why was transactional consistency important in the PostgreSQL decision?",
+      "expected": {
+        "type": "documented",
+        "memory_title": "Architecture: choose PostgreSQL",
+        "source_id": "pr-99"
+      },
+      "actual": {
+        "documented": true,
+        "answer": "Architecture: choose PostgreSQL\n\nRationale:\nbecause we need transactional consistency and typed relational data.\n\nEvidence:\nWe decided to use PostgreSQL because we need transactional consistency and typed relational data.",
+        "memory_count": 1,
+        "citation_count": 1,
+        "memory_titles": [
+          "Architecture: choose PostgreSQL"
+        ],
+        "citation_source_ids": [
+          "pr-99"
+        ]
+      },
+      "checks": {
+        "documented_status": true,
+        "memory_match": true,
+        "citation_match": true,
+        "evidence_present": true
+      },
+      "passed": true
+    },
+    {
+      "id": "Q14",
+      "question": "Why was typed relational data mentioned in the PostgreSQL decision?",
+      "expected": {
+        "type": "documented",
+        "memory_title": "Architecture: choose PostgreSQL",
+        "source_id": "pr-99"
+      },
+      "actual": {
+        "documented": true,
+        "answer": "Architecture: choose PostgreSQL\n\nRationale:\nbecause we need transactional consistency and typed relational data.\n\nEvidence:\nWe decided to use PostgreSQL because we need transactional consistency and typed relational data.",
+        "memory_count": 1,
+        "citation_count": 1,
+        "memory_titles": [
+          "Architecture: choose PostgreSQL"
+        ],
+        "citation_source_ids": [
+          "pr-99"
+        ]
+      },
+      "checks": {
+        "documented_status": true,
+        "memory_match": true,
+        "citation_match": true,
+        "evidence_present": true
+      },
+      "passed": true
+    },
+    {
+      "id": "Q15",
+      "question": "Why did we choose Redis?",
+      "expected": {
+        "type": "not_documented"
+      },
+      "actual": {
+        "documented": false,
+        "answer": "NOT DOCUMENTED",
+        "memory_count": 0,
+        "citation_count": 0,
+        "memory_titles": [],
+        "citation_source_ids": []
+      },
+      "checks": {
+        "documented_status": true,
+        "memory_match": true,
+        "citation_match": true,
+        "evidence_present": true
+      },
+      "passed": true
+    },
+    {
+      "id": "Q16",
+      "question": "Why did we choose MongoDB?",
+      "expected": {
+        "type": "not_documented"
+      },
+      "actual": {
+        "documented": false,
+        "answer": "NOT DOCUMENTED",
+        "memory_count": 0,
+        "citation_count": 0,
+        "memory_titles": [],
+        "citation_source_ids": []
+      },
+      "checks": {
+        "documented_status": true,
+        "memory_match": true,
+        "citation_match": true,
+        "evidence_present": true
+      },
+      "passed": true
+    },
+    {
+      "id": "Q17",
+      "question": "Why did we choose SQLite?",
+      "expected": {
+        "type": "not_documented"
+      },
+      "actual": {
+        "documented": false,
+        "answer": "NOT DOCUMENTED",
+        "memory_count": 0,
+        "citation_count": 0,
+        "memory_titles": [],
+        "citation_source_ids": []
+      },
+      "checks": {
+        "documented_status": true,
+        "memory_match": true,
+        "citation_match": true,
+        "evidence_present": true
+      },
+      "passed": true
+    },
+    {
+      "id": "Q18",
+      "question": "Why was Flask rejected?",
+      "expected": {
+        "type": "not_documented"
+      },
+      "actual": {
+        "documented": false,
+        "answer": "NOT DOCUMENTED",
+        "memory_count": 0,
+        "citation_count": 0,
+        "memory_titles": [],
+        "citation_source_ids": []
+      },
+      "checks": {
+        "documented_status": true,
+        "memory_match": true,
+        "citation_match": true,
+        "evidence_present": true
+      },
+      "passed": true
+    },
+    {
+      "id": "Q19",
+      "question": "Why was a particular database migration strategy chosen?",
+      "expected": {
+        "type": "not_documented"
+      },
+      "actual": {
+        "documented": false,
+        "answer": "NOT DOCUMENTED",
+        "memory_count": 0,
+        "citation_count": 0,
+        "memory_titles": [],
+        "citation_source_ids": []
+      },
+      "checks": {
+        "documented_status": true,
+        "memory_match": true,
+        "citation_match": true,
+        "evidence_present": true
+      },
+      "passed": true
+    },
+    {
+      "id": "Q20",
+      "question": "Why was a specific caching strategy chosen?",
+      "expected": {
+        "type": "not_documented"
+      },
+      "actual": {
+        "documented": false,
+        "answer": "NOT DOCUMENTED",
+        "memory_count": 0,
+        "citation_count": 0,
+        "memory_titles": [],
+        "citation_source_ids": []
+      },
+      "checks": {
+        "documented_status": true,
+        "memory_match": true,
+        "citation_match": true,
+        "evidence_present": true
+      },
+      "passed": true
+    }
+  ],
+  "memory_off": [
+    {
+      "id": "Q01",
+      "question": "Why did we choose FastAPI?",
+      "actual": {
+        "documented": false,
+        "answer": "Memory is disabled for this request. No codebase memory was used.",
+        "memory_count": 0,
+        "citation_count": 0
+      },
+      "checks": {
+        "no_memories": true,
+        "no_citations": true,
+        "disabled_message": true
+      },
+      "passed": true
+    },
+    {
+      "id": "Q02",
+      "question": "Why was FastAPI selected for the backend?",
+      "actual": {
+        "documented": false,
+        "answer": "Memory is disabled for this request. No codebase memory was used.",
+        "memory_count": 0,
+        "citation_count": 0
+      },
+      "checks": {
+        "no_memories": true,
+        "no_citations": true,
+        "disabled_message": true
+      },
+      "passed": true
+    },
+    {
+      "id": "Q03",
+      "question": "What was the reason for choosing FastAPI?",
+      "actual": {
+        "documented": false,
+        "answer": "Memory is disabled for this request. No codebase memory was used.",
+        "memory_count": 0,
+        "citation_count": 0
+      },
+      "checks": {
+        "no_memories": true,
+        "no_citations": true,
+        "disabled_message": true
+      },
+      "passed": true
+    },
+    {
+      "id": "Q04",
+      "question": "Why does the project use FastAPI?",
+      "actual": {
+        "documented": false,
+        "answer": "Memory is disabled for this request. No codebase memory was used.",
+        "memory_count": 0,
+        "citation_count": 0
+      },
+      "checks": {
+        "no_memories": true,
+        "no_citations": true,
+        "disabled_message": true
+      },
+      "passed": true
+    },
+    {
+      "id": "Q05",
+      "question": "What rationale was documented for the FastAPI decision?",
+      "actual": {
+        "documented": false,
+        "answer": "Memory is disabled for this request. No codebase memory was used.",
+        "memory_count": 0,
+        "citation_count": 0
+      },
+      "checks": {
+        "no_memories": true,
+        "no_citations": true,
+        "disabled_message": true
+      },
+      "passed": true
+    },
+    {
+      "id": "Q06",
+      "question": "Why were typed request and response models relevant to the backend framework decision?",
+      "actual": {
+        "documented": false,
+        "answer": "Memory is disabled for this request. No codebase memory was used.",
+        "memory_count": 0,
+        "citation_count": 0
+      },
+      "checks": {
+        "no_memories": true,
+        "no_citations": true,
+        "disabled_message": true
+      },
+      "passed": true
+    },
+    {
+      "id": "Q07",
+      "question": "Why were asynchronous API endpoints part of the FastAPI decision?",
+      "actual": {
+        "documented": false,
+        "answer": "Memory is disabled for this request. No codebase memory was used.",
+        "memory_count": 0,
+        "citation_count": 0
+      },
+      "checks": {
+        "no_memories": true,
+        "no_citations": true,
+        "disabled_message": true
+      },
+      "passed": true
+    },
+    {
+      "id": "Q08",
+      "question": "Why was Pydantic integration relevant when choosing the backend framework?",
+      "actual": {
+        "documented": false,
+        "answer": "Memory is disabled for this request. No codebase memory was used.",
+        "memory_count": 0,
+        "citation_count": 0
+      },
+      "checks": {
+        "no_memories": true,
+        "no_citations": true,
+        "disabled_message": true
+      },
+      "passed": true
+    },
+    {
+      "id": "Q09",
+      "question": "What alternatives were considered for the backend framework?",
+      "actual": {
+        "documented": false,
+        "answer": "Memory is disabled for this request. No codebase memory was used.",
+        "memory_count": 0,
+        "citation_count": 0
+      },
+      "checks": {
+        "no_memories": true,
+        "no_citations": true,
+        "disabled_message": true
+      },
+      "passed": true
+    },
+    {
+      "id": "Q10",
+      "question": "Why was PostgreSQL chosen?",
+      "actual": {
+        "documented": false,
+        "answer": "Memory is disabled for this request. No codebase memory was used.",
+        "memory_count": 0,
+        "citation_count": 0
+      },
+      "checks": {
+        "no_memories": true,
+        "no_citations": true,
+        "disabled_message": true
+      },
+      "passed": true
+    },
+    {
+      "id": "Q11",
+      "question": "Why does the project use PostgreSQL?",
+      "actual": {
+        "documented": false,
+        "answer": "Memory is disabled for this request. No codebase memory was used.",
+        "memory_count": 0,
+        "citation_count": 0
+      },
+      "checks": {
+        "no_memories": true,
+        "no_citations": true,
+        "disabled_message": true
+      },
+      "passed": true
+    },
+    {
+      "id": "Q12",
+      "question": "What was the rationale for choosing PostgreSQL?",
+      "actual": {
+        "documented": false,
+        "answer": "Memory is disabled for this request. No codebase memory was used.",
+        "memory_count": 0,
+        "citation_count": 0
+      },
+      "checks": {
+        "no_memories": true,
+        "no_citations": true,
+        "disabled_message": true
+      },
+      "passed": true
+    },
+    {
+      "id": "Q13",
+      "question": "Why was transactional consistency important in the PostgreSQL decision?",
+      "actual": {
+        "documented": false,
+        "answer": "Memory is disabled for this request. No codebase memory was used.",
+        "memory_count": 0,
+        "citation_count": 0
+      },
+      "checks": {
+        "no_memories": true,
+        "no_citations": true,
+        "disabled_message": true
+      },
+      "passed": true
+    },
+    {
+      "id": "Q14",
+      "question": "Why was typed relational data mentioned in the PostgreSQL decision?",
+      "actual": {
+        "documented": false,
+        "answer": "Memory is disabled for this request. No codebase memory was used.",
+        "memory_count": 0,
+        "citation_count": 0
+      },
+      "checks": {
+        "no_memories": true,
+        "no_citations": true,
+        "disabled_message": true
+      },
+      "passed": true
+    },
+    {
+      "id": "Q15",
+      "question": "Why did we choose Redis?",
+      "actual": {
+        "documented": false,
+        "answer": "Memory is disabled for this request. No codebase memory was used.",
+        "memory_count": 0,
+        "citation_count": 0
+      },
+      "checks": {
+        "no_memories": true,
+        "no_citations": true,
+        "disabled_message": true
+      },
+      "passed": true
+    },
+    {
+      "id": "Q16",
+      "question": "Why did we choose MongoDB?",
+      "actual": {
+        "documented": false,
+        "answer": "Memory is disabled for this request. No codebase memory was used.",
+        "memory_count": 0,
+        "citation_count": 0
+      },
+      "checks": {
+        "no_memories": true,
+        "no_citations": true,
+        "disabled_message": true
+      },
+      "passed": true
+    },
+    {
+      "id": "Q17",
+      "question": "Why did we choose SQLite?",
+      "actual": {
+        "documented": false,
+        "answer": "Memory is disabled for this request. No codebase memory was used.",
+        "memory_count": 0,
+        "citation_count": 0
+      },
+      "checks": {
+        "no_memories": true,
+        "no_citations": true,
+        "disabled_message": true
+      },
+      "passed": true
+    },
+    {
+      "id": "Q18",
+      "question": "Why was Flask rejected?",
+      "actual": {
+        "documented": false,
+        "answer": "Memory is disabled for this request. No codebase memory was used.",
+        "memory_count": 0,
+        "citation_count": 0
+      },
+      "checks": {
+        "no_memories": true,
+        "no_citations": true,
+        "disabled_message": true
+      },
+      "passed": true
+    },
+    {
+      "id": "Q19",
+      "question": "Why was a particular database migration strategy chosen?",
+      "actual": {
+        "documented": false,
+        "answer": "Memory is disabled for this request. No codebase memory was used.",
+        "memory_count": 0,
+        "citation_count": 0
+      },
+      "checks": {
+        "no_memories": true,
+        "no_citations": true,
+        "disabled_message": true
+      },
+      "passed": true
+    },
+    {
+      "id": "Q20",
+      "question": "Why was a specific caching strategy chosen?",
+      "actual": {
+        "documented": false,
+        "answer": "Memory is disabled for this request. No codebase memory was used.",
+        "memory_count": 0,
+        "citation_count": 0
+      },
+      "checks": {
+        "no_memories": true,
+        "no_citations": true,
+        "disabled_message": true
+      },
+      "passed": true
+    }
+  ]
+}

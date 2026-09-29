@@ -1,0 +1,173 @@
+{
+  "version": 1,
+  "questions": [
+    {
+      "id": "Q01",
+      "question": "Why did we choose FastAPI?",
+      "expected": {
+        "type": "documented",
+        "memory_title": "Architecture: choose FastAPI for backend",
+        "source_id": "1"
+      }
+    },
+    {
+      "id": "Q02",
+      "question": "Why was FastAPI selected for the backend?",
+      "expected": {
+        "type": "documented",
+        "memory_title": "Architecture: choose FastAPI for backend",
+        "source_id": "1"
+      }
+    },
+    {
+      "id": "Q03",
+      "question": "What was the reason for choosing FastAPI?",
+      "expected": {
+        "type": "documented",
+        "memory_title": "Architecture: choose FastAPI for backend",
+        "source_id": "1"
+      }
+    },
+    {
+      "id": "Q04",
+      "question": "Why does the project use FastAPI?",
+      "expected": {
+        "type": "documented",
+        "memory_title": "Architecture: choose FastAPI for backend",
+        "source_id": "1"
+      }
+    },
+    {
+      "id": "Q05",
+      "question": "What rationale was documented for the FastAPI decision?",
+      "expected": {
+        "type": "documented",
+        "memory_title": "Architecture: choose FastAPI for backend",
+        "source_id": "1"
+      }
+    },
+    {
+      "id": "Q06",
+      "question": "Why were typed request and response models relevant to the backend framework decision?",
+      "expected": {
+        "type": "documented",
+        "memory_title": "Architecture: choose FastAPI for backend",
+        "source_id": "1"
+      }
+    },
+    {
+      "id": "Q07",
+      "question": "Why were asynchronous API endpoints part of the FastAPI decision?",
+      "expected": {
+        "type": "documented",
+        "memory_title": "Architecture: choose FastAPI for backend",
+        "source_id": "1"
+      }
+    },
+    {
+      "id": "Q08",
+      "question": "Why was Pydantic integration relevant when choosing the backend framework?",
+      "expected": {
+        "type": "documented",
+        "memory_title": "Architecture: choose FastAPI for backend",
+        "source_id": "1"
+      }
+    },
+    {
+      "id": "Q09",
+      "question": "What alternatives were considered for the backend framework?",
+      "expected": {
+        "type": "documented",
+        "memory_title": "Architecture: choose FastAPI for backend",
+        "source_id": "1"
+      }
+    },
+    {
+      "id": "Q10",
+      "question": "Why was PostgreSQL chosen?",
+      "expected": {
+        "type": "documented",
+        "memory_title": "Architecture: choose PostgreSQL",
+        "source_id": "pr-99"
+      }
+    },
+    {
+      "id": "Q11",
+      "question": "Why does the project use PostgreSQL?",
+      "expected": {
+        "type": "documented",
+        "memory_title": "Architecture: choose PostgreSQL",
+        "source_id": "pr-99"
+      }
+    },
+    {
+      "id": "Q12",
+      "question": "What was the rationale for choosing PostgreSQL?",
+      "expected": {
+        "type": "documented",
+        "memory_title": "Architecture: choose PostgreSQL",
+        "source_id": "pr-99"
+      }
+    },
+    {
+      "id": "Q13",
+      "question": "Why was transactional consistency important in the PostgreSQL decision?",
+      "expected": {
+        "type": "documented",
+        "memory_title": "Architecture: choose PostgreSQL",
+        "source_id": "pr-99"
+      }
+    },
+    {
+      "id": "Q14",
+      "question": "Why was typed relational data mentioned in the PostgreSQL decision?",
+      "expected": {
+        "type": "documented",
+        "memory_title": "Architecture: choose PostgreSQL",
+        "source_id": "pr-99"
+      }
+    },
+    {
+      "id": "Q15",
+      "question": "Why did we choose Redis?",
+      "expected": {
+        "type": "not_documented"
+      }
+    },
+    {
+      "id": "Q16",
+      "question": "Why did we choose MongoDB?",
+      "expected": {
+        "type": "not_documented"
+      }
+    },
+    {
+      "id": "Q17",
+      "question": "Why did we choose SQLite?",
+      "expected": {
+        "type": "not_documented"
+      }
+    },
+    {
+      "id": "Q18",
+      "question": "Why was Flask rejected?",
+      "expected": {
+        "type": "not_documented"
+      }
+    },
+    {
+      "id": "Q19",
+      "question": "Why was a particular database migration strategy chosen?",
+      "expected": {
+        "type": "not_documented"
+      }
+    },
+    {
+      "id": "Q20",
+      "question": "Why was a specific caching strategy chosen?",
+      "expected": {
+        "type": "not_documented"
+      }
+    }
+  ]
+}

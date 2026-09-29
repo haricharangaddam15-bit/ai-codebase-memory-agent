@@ -145,6 +145,10 @@ class LocalMemoryStore:
             title = str(memory.get("title", ""))
             summary = str(memory.get("summary", ""))
             rationale = str(memory.get("rationale", ""))
+            alternatives = " ".join(
+                str(value)
+                for value in memory.get("alternatives", [])
+            )
             module = str(memory.get("module", ""))
             file_paths = " ".join(
                 memory.get("file_paths", [])
@@ -154,6 +158,7 @@ class LocalMemoryStore:
                 "title": set(tokenize(title)),
                 "summary": set(tokenize(summary)),
                 "rationale": set(tokenize(rationale)),
+                "alternatives": set(tokenize(alternatives)),
                 "module": set(tokenize(module)),
                 "file_paths": set(tokenize(file_paths)),
             }
@@ -178,11 +183,16 @@ class LocalMemoryStore:
                 query_terms & searchable_fields["file_paths"]
             )
 
+            alternatives_matches = len(
+                query_terms & searchable_fields["alternatives"]
+            )
+
             score = (
                 len(matched_terms)
                 + title_matches * 5
                 + module_matches * 3
                 + file_matches * 3
+                + alternatives_matches * 6
             )
 
             # Require at least one meaningful query term to occur
