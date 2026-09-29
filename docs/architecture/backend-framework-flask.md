@@ -2,7 +2,7 @@
 
 ## Decision
 
-The AI Codebase Memory Agent backend uses FastAPI.
+The AI Codebase Memory Agent backend uses Flask.
 
 ## Rationale
 
