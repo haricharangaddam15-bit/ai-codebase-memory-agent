@@ -1,67 +1,73 @@
 from pathlib import Path
+from tempfile import TemporaryDirectory
 from unittest.mock import patch
 
 from scripts import run_github_pr_review
 
 
-def test_runner_writes_no_findings_summary(tmp_path):
-    memory_file = tmp_path / "memories.json"
-    result_file = tmp_path / "review-result.md"
+def test_runner_writes_no_findings_summary():
+    with TemporaryDirectory() as directory:
+        tmp_path = Path(directory)
 
-    memory_file.write_text(
-        '{"version":1,"memory_count":0,"memories":[]}',
-        encoding="utf-8",
-    )
+        memory_file = tmp_path / "memories.json"
+        result_file = tmp_path / "review-result.md"
 
-    fake_pr = type(
-        "FakePR",
-        (),
-        {
-            "number": 1,
-            "title": "Test PR",
-            "changed_files": ["test.py"],
-        },
-    )()
-
-    with patch.object(
-        run_github_pr_review,
-        "MEMORY_FILE",
-        memory_file,
-    ), patch.object(
-        run_github_pr_review,
-        "RESULT_FILE",
-        result_file,
-    ), patch.object(
-        run_github_pr_review,
-        "GitHubSource",
-    ) as source_class:
-        source = source_class.return_value
-        source.fetch_pull_request.return_value = fake_pr
-        source.fetch_pull_request_diff.return_value = (
-            "diff --git a/test.py b/test.py\n"
-            "--- a/test.py\n"
-            "+++ b/test.py\n"
-            "@@ -1 +1 @@\n"
-            "+print('hello')\n"
+        memory_file.write_text(
+            '{"version":1,"memory_count":0,"memories":[]}',
+            encoding="utf-8",
         )
 
-        with patch.dict(
-            "os.environ",
+        fake_pr = type(
+            "FakePR",
+            (),
             {
-                "GITHUB_TOKEN": "test-token",
-                "GITHUB_REPOSITORY": "owner/repo",
-                "PR_NUMBER": "1",
+                "number": 1,
+                "title": "Test PR",
+                "changed_files": ["test.py"],
             },
-            clear=False,
-        ):
-            run_github_pr_review.main()
+        )()
 
-    content = result_file.read_text(
-        encoding="utf-8"
-    )
+        with patch.object(
+            run_github_pr_review,
+            "MEMORY_FILE",
+            memory_file,
+        ), patch.object(
+            run_github_pr_review,
+            "RESULT_FILE",
+            result_file,
+        ), patch.object(
+            run_github_pr_review,
+            "GitHubSource",
+        ) as source_class:
+            source = source_class.return_value
 
-    assert "No evidence-backed review comments." in content
-    assert "Report-only mode" in content
+            source.fetch_pull_request.return_value = fake_pr
+
+            source.fetch_pull_request_diff.return_value = (
+                "diff --git a/test.py b/test.py\n"
+                "--- a/test.py\n"
+                "+++ b/test.py\n"
+                "@@ -1 +1 @@\n"
+                "+print('hello')\n"
+            )
+
+            with patch.dict(
+                "os.environ",
+                {
+                    "GITHUB_TOKEN": "test-token",
+                    "GITHUB_REPOSITORY": "owner/repo",
+                    "PR_NUMBER": "1",
+                },
+                clear=False,
+            ):
+                run_github_pr_review.main()
+
+        content = result_file.read_text(
+            encoding="utf-8"
+        )
+
+        assert "No evidence-backed review comments." in content
+        assert "Report-only mode" in content
 
 
 if __name__ == "__main__":
