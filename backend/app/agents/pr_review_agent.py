@@ -63,6 +63,9 @@ class PRReviewAgent:
             if memory.get("status") != "active":
                 continue
 
+            if memory.get("superseded_by"):
+                continue
+
             evidence = memory.get("evidence", {})
 
             if not evidence.get("quote", "").strip():
@@ -85,21 +88,50 @@ class PRReviewAgent:
         files: set[str] = set()
 
         for match in re.finditer(
-            r"^\+\+\+\s+(?:b/)?(.+)$",
-            diff,
-            flags=re.MULTILINE,
-        ):
-            path = match.group(1).strip()
-
-            if path != "/dev/null":
-                files.add(path)
-
-        for match in re.finditer(
             r"^diff --git a/(.+?) b/(.+?)$",
             diff,
             flags=re.MULTILINE,
         ):
-            files.add(match.group(2).strip())
+            old_path = match.group(1).strip()
+            new_path = match.group(2).strip()
+
+            if old_path != "/dev/null":
+                files.add(old_path)
+
+            if new_path != "/dev/null":
+                files.add(new_path)
+
+        for match in re.finditer(
+            r"^---\s+(?:a/)?(.+)$",
+            diff,
+            flags=re.MULTILINE,
+        ):
+            path_value = match.group(1).strip()
+            if path_value != "/dev/null":
+                files.add(path_value)
+
+        for match in re.finditer(
+            r"^\+\+\+\s+(?:b/)?(.+)$",
+            diff,
+            flags=re.MULTILINE,
+        ):
+            path_value = match.group(1).strip()
+            if path_value != "/dev/null":
+                files.add(path_value)
+
+        for match in re.finditer(
+            r"^rename from (.+)$",
+            diff,
+            flags=re.MULTILINE,
+        ):
+            files.add(match.group(1).strip())
+
+        for match in re.finditer(
+            r"^rename to (.+)$",
+            diff,
+            flags=re.MULTILINE,
+        ):
+            files.add(match.group(1).strip())
 
         return files
 
@@ -125,8 +157,6 @@ class PRReviewAgent:
                 if changed_path == stored_path:
                     return True
 
-                if changed_path.name == stored_path.name:
-                    return True
 
         return False
 
@@ -173,6 +203,19 @@ class PRReviewAgent:
 
         if not removed_choices:
             return False
+
+        # A deleted implementation file removes the documented choice
+        # entirely, so no added replacement lines are required.
+        deleted_file = bool(
+            re.search(
+                r"^\+\+\+\s+/dev/null$",
+                diff,
+                flags=re.MULTILINE,
+            )
+        )
+
+        if deleted_file:
+            return True
 
         # There must be evidence that the implementation is moving
         # toward another choice or explicitly replacing the old one.
