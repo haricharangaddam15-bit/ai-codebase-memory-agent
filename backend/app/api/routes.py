@@ -4,6 +4,7 @@ from fastapi import APIRouter, HTTPException
 
 from backend.app.agents.qa_agent import QAAgent
 from backend.app.agents.capture_agent import CaptureAgent
+from backend.app.agents.pr_review_agent import PRReviewAgent
 from backend.app.memory.capture_store import CaptureStore
 from backend.app.schemas.capture import (
     CaptureCreateRequest,
@@ -11,6 +12,11 @@ from backend.app.schemas.capture import (
 )
 from backend.app.memory.local_store import LocalMemoryStore
 from backend.app.schemas.qa import AskRequest, AskResponse
+from backend.app.schemas.review import (
+    PRReviewRequest,
+    PRReviewResponse,
+    PRReviewComment,
+)
 
 
 router = APIRouter(prefix="/api/v1")
@@ -25,6 +31,7 @@ MEMORY_FILE = (
 
 memory_store = LocalMemoryStore(str(MEMORY_FILE))
 qa_agent = QAAgent(memory_store)
+pr_review_agent = PRReviewAgent()
 capture_agent = CaptureAgent()
 CAPTURE_FILE = (
     Path(__file__).resolve().parents[3]
@@ -57,6 +64,32 @@ def ask(request: AskRequest):
         memory_enabled=request.memory_enabled,
         memories=result.memories,
         citations=result.citations,
+    )
+
+
+@router.post("/review", response_model=PRReviewResponse)
+def review_pull_request(request: PRReviewRequest):
+    if not request.memory_enabled:
+        return PRReviewResponse(
+            reviewed=False,
+            memory_enabled=False,
+            comments=[],
+        )
+
+    memories = memory_store.load()
+
+    comments = pr_review_agent.review(
+        diff=request.diff,
+        memories=memories,
+    )
+
+    return PRReviewResponse(
+        reviewed=True,
+        memory_enabled=True,
+        comments=[
+            PRReviewComment(**comment)
+            for comment in comments
+        ],
     )
 
 
