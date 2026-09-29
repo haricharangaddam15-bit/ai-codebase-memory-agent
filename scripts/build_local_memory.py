@@ -3,29 +3,29 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
-from backend.app.memory.local_store import LocalMemoryStore
+from backend.app.memory.local_store import (
+    LocalMemoryStore,
+    normalize_source_url,
+)
 
 
-INPUT = Path("data/processed/ingestion.json")
-OUTPUT = Path("data/memory/memories.json")
+ROOT = Path(__file__).resolve().parents[1]
+
+INPUT = ROOT / "data" / "processed" / "ingestion.json"
+OUTPUT = ROOT / "data" / "memory" / "memories.json"
 
 
-def main() -> None:
-    if not INPUT.exists():
-        raise SystemExit(f"Missing input: {INPUT}")
+def main():
+    payload = json.loads(
+        INPUT.read_text(encoding="utf-8")
+    )
 
-    payload = json.loads(INPUT.read_text(encoding="utf-8"))
     memories = payload.get("memories", [])
 
-    if not memories:
-        raise SystemExit("No memories found in ingestion output.")
-
-    # Safety rule:
-    # only persist memories that contain evidence.
     valid_memories = []
 
     for memory in memories:
-        evidence = memory.get("evidence") or {}
+        evidence = memory.get("evidence", {})
         quote = str(evidence.get("quote", "")).strip()
 
         if not quote:
@@ -35,7 +35,18 @@ def main() -> None:
             )
             continue
 
-        valid_memories.append(memory)
+        normalized_memory = dict(memory)
+
+        normalized_evidence = dict(evidence)
+
+        if normalized_evidence.get("source_url"):
+            normalized_evidence["source_url"] = normalize_source_url(
+                normalized_evidence["source_url"]
+            )
+
+        normalized_memory["evidence"] = normalized_evidence
+
+        valid_memories.append(normalized_memory)
 
     store = LocalMemoryStore(str(OUTPUT))
     store.save(valid_memories)

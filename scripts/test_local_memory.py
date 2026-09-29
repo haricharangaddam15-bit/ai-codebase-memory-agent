@@ -1,17 +1,23 @@
+from pathlib import Path
+
 from backend.app.memory.local_store import LocalMemoryStore
 
 
-def main() -> None:
-    store = LocalMemoryStore()
+ROOT = Path(__file__).resolve().parents[1]
+MEMORY_FILE = ROOT / "data" / "memory" / "memories.json"
+
+
+def main():
+    store = LocalMemoryStore(str(MEMORY_FILE))
 
     questions = [
         "Why did we choose FastAPI?",
         "backend framework decision",
+        "Why did we choose Redis?",
         "Redis PostgreSQL",
     ]
 
     for question in questions:
-        print()
         print("=" * 70)
         print(f"QUESTION: {question}")
 
@@ -22,16 +28,12 @@ def main() -> None:
             continue
 
         for memory in results:
+            evidence = memory.get("evidence", {})
+
             print(f"TITLE: {memory.get('title')}")
             print(f"RATIONALE: {memory.get('rationale')}")
-            print(
-                "EVIDENCE:",
-                memory.get("evidence", {}).get("quote"),
-            )
-            print(
-                "SOURCE:",
-                memory.get("evidence", {}).get("source_url"),
-            )
+            print(f"EVIDENCE: {evidence.get('quote')}")
+            print(f"SOURCE: {evidence.get('source_url')}")
 
 
 if __name__ == "__main__":

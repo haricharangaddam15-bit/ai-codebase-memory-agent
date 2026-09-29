@@ -1,0 +1,31 @@
+{
+  "version": 1,
+  "memory_count": 1,
+  "memories": [
+    {
+      "memory_type": "decision",
+      "title": "Architecture: choose FastAPI for backend",
+      "summary": "Architecture: choose FastAPI for backend",
+      "rationale": "FastAPI was selected because the project needs:\n\n- typed request and response models\n- asynchronous API endpoints\n- automatic OpenAPI documentation\n- strong integration with Pydantic\n\nThe typed API contracts are particularly useful because the ingestion,\nmemory, and Q&A layers exchange structured data.",
+      "evidence": {
+        "quote": "FastAPI was selected because the project needs:\n\n- typed request and response models\n- asynchronous API endpoints\n- automatic OpenAPI documentation\n- strong integration with Pydantic\n\nThe typed API contracts are particularly useful because the ingestion,\nmemory, and Q&A layers exchange structured data.",
+        "source_url": "https://github.com/haricharangaddam15-bit/ai-codebase-memory-agent/pull/1",
+        "source_type": "github_pr",
+        "source_id": "1",
+        "author": "haricharangaddam15-bit",
+        "date": null
+      },
+      "alternatives": [
+        "We considered Flask and FastAPI."
+      ],
+      "decided_by": "haricharangaddam15-bit",
+      "module": "docs/architecture",
+      "file_paths": [
+        "docs/architecture/backend-framework.md"
+      ],
+      "status": "active",
+      "confidence": 0.75,
+      "superseded_by": null
+    }
+  ]
+}
