@@ -1,14 +1,14 @@
-from unittest.mock import MagicMock
+from unittest.mock import MagicMock, patch
 
 from backend.app.ingestion.github_source import GitHubSource
 
 
 def build_source():
     source = object.__new__(GitHubSource)
-
     source.github = MagicMock()
     source.repo = MagicMock()
-
+    source.token = "test-token"
+    source.repository = "example/repo"
     return source
 
 
@@ -81,79 +81,144 @@ def test_fetch_pull_request():
 def test_fetch_pull_request_diff():
     source = build_source()
 
-    pr = MagicMock()
-
-    changed_file = MagicMock()
-    changed_file.filename = (
-        "backend/services/session_cache.py"
-    )
-    changed_file.patch = (
+    response = MagicMock()
+    response.text = (
+        "diff --git a/backend/services/session_cache.py "
+        "b/backend/services/session_cache.py\n"
+        "--- a/backend/services/session_cache.py\n"
+        "+++ b/backend/services/session_cache.py\n"
         "@@ -1,2 +1,2 @@\n"
         "-from redis import Redis\n"
         "+from memcached import Client\n"
-    )
-
-    second_file = MagicMock()
-    second_file.filename = "backend/api/users.py"
-    second_file.patch = (
+        "diff --git a/backend/api/users.py "
+        "b/backend/api/users.py\n"
+        "--- a/backend/api/users.py\n"
+        "+++ b/backend/api/users.py\n"
         "@@ -1,1 +1,2 @@\n"
         " def get_user():\n"
         "+    return {'ok': True}\n"
     )
 
-    pr.get_files.return_value = [
-        changed_file,
-        second_file,
-    ]
+    with patch(
+        "backend.app.ingestion.github_source.httpx.get",
+        return_value=response,
+    ) as mock_get:
+        diff = source.fetch_pull_request_diff(102)
 
-    source.repo.get_pull.return_value = pr
+    expected_url = (
+        "https"
+        + "://"
+        + "api.github.com/repos/example/repo/pulls/102"
+    )
 
-    diff = source.fetch_pull_request_diff(102)
+    mock_get.assert_called_once_with(
+        expected_url,
+        headers={
+            "Accept": "application/vnd.github.v3.diff",
+            "Authorization": "Bearer test-token",
+            "X-GitHub-Api-Version": "2022-11-28",
+        },
+        timeout=30.0,
+    )
 
     assert (
         "diff --git a/backend/services/session_cache.py "
         "b/backend/services/session_cache.py"
     ) in diff
-
-    assert (
-        "-from redis import Redis"
-        in diff
-    )
-
-    assert (
-        "+from memcached import Client"
-        in diff
-    )
-
+    assert "-from redis import Redis" in diff
+    assert "+from memcached import Client" in diff
     assert (
         "diff --git a/backend/api/users.py "
         "b/backend/api/users.py"
     ) in diff
 
-
-def test_files_without_patch_are_skipped():
+def test_rename_metadata_is_preserved():
     source = build_source()
 
-    pr = MagicMock()
+    response = MagicMock()
+    response.text = (
+        "diff --git a/docs/architecture/backend-framework.md "
+        "b/docs/architecture/backend-framework-flask.md\n"
+        "similarity index 86%\n"
+        "rename from docs/architecture/backend-framework.md\n"
+        "rename to docs/architecture/backend-framework-flask.md\n"
+        "--- a/docs/architecture/backend-framework.md\n"
+        "+++ b/docs/architecture/backend-framework-flask.md\n"
+        "@@ -2,7 +2,7 @@\n"
+        "-The AI Codebase Memory Agent backend uses FastAPI.\n"
+        "+The AI Codebase Memory Agent backend uses Flask.\n"
+    )
 
-    deleted_or_binary_file = MagicMock()
-    deleted_or_binary_file.filename = "image.png"
-    deleted_or_binary_file.patch = None
+    with patch(
+        "backend.app.ingestion.github_source.httpx.get",
+        return_value=response,
+    ):
+        diff = source.fetch_pull_request_diff(102)
 
-    pr.get_files.return_value = [
-        deleted_or_binary_file,
-    ]
+    assert (
+        "rename from docs/architecture/backend-framework.md"
+        in diff
+    )
+    assert (
+        "rename to docs/architecture/backend-framework-flask.md"
+        in diff
+    )
+    assert (
+        "--- a/docs/architecture/backend-framework.md"
+        in diff
+    )
+    assert (
+        "+++ b/docs/architecture/backend-framework-flask.md"
+        in diff
+    )
 
-    source.repo.get_pull.return_value = pr
 
-    diff = source.fetch_pull_request_diff(102)
+def test_http_error_is_propagated():
+    source = build_source()
 
-    assert diff == ""
+    response = MagicMock()
+    response.raise_for_status.side_effect = RuntimeError(
+        "GitHub error"
+    )
+
+    with patch(
+        "backend.app.ingestion.github_source.httpx.get",
+        return_value=response,
+    ):
+        try:
+            source.fetch_pull_request_diff(102)
+        except RuntimeError as exc:
+            assert str(exc) == "GitHub error"
+        else:
+            raise AssertionError("Expected GitHub error")
+
+
+def test_github_diff_error_is_propagated():
+    source = build_source()
+
+    response = MagicMock()
+    response.raise_for_status.side_effect = RuntimeError(
+        "GitHub diff request failed"
+    )
+
+    with patch(
+        "backend.app.ingestion.github_source.httpx.get",
+        return_value=response,
+    ):
+        try:
+            source.fetch_pull_request_diff(102)
+        except RuntimeError as exc:
+            assert str(exc) == "GitHub diff request failed"
+        else:
+            raise AssertionError(
+                "Expected GitHub diff request failure"
+            )
 
 
 if __name__ == "__main__":
     test_fetch_pull_request()
     test_fetch_pull_request_diff()
-    test_files_without_patch_are_skipped()
-
+    test_rename_metadata_is_preserved()
+    test_http_error_is_propagated()
+    test_github_diff_error_is_propagated()
     print("All GitHub review source tests passed.")

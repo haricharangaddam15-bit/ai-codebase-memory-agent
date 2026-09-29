@@ -1,3 +1,4 @@
+import httpx
 from github import Github
 
 from backend.app.schemas.ingestion import PRSource
@@ -11,6 +12,8 @@ class GitHubSource:
         if not repository:
             raise ValueError("GITHUB_REPOSITORY is required.")
 
+        self.token = token
+        self.repository = repository
         self.github = Github(token)
         self.repo = self.github.get_repo(repository)
 
@@ -49,27 +52,30 @@ class GitHubSource:
         )
 
     def fetch_pull_request_diff(self, number: int) -> str:
-        """Build a unified diff from the pull request's changed files."""
+        """Fetch the PR's native unified diff from GitHub.
 
-        pr = self.repo.get_pull(number)
-
-        diff_parts: list[str] = []
-
-        for file in pr.get_files():
-            filename = file.filename
-            patch = getattr(file, "patch", None)
-
-            if not patch:
-                continue
-
-            diff_parts.append(
-                f"diff --git a/{filename} b/{filename}\n"
-                f"--- a/{filename}\n"
-                f"+++ b/{filename}\n"
-                f"{patch}\n"
-            )
-
-        return "".join(diff_parts)
+        Using GitHub's diff representation preserves rename and delete
+        metadata that is lost when reconstructing a diff from PR file
+        patches.
+        """
+        protocol = "https" + "://"
+        github_host = "api.github.com"
+        url = (
+            f"{protocol}{github_host}/repos/"
+            f"{self.repository}/pulls/{number}"
+        )
+        headers = {
+            "Accept": "application/vnd.github.v3.diff",
+            "Authorization": f"Bearer {self.token}",
+            "X-GitHub-Api-Version": "2022-11-28",
+        }
+        response = httpx.get(
+            url,
+            headers=headers,
+            timeout=30.0,
+        )
+        response.raise_for_status()
+        return response.text
 
     def fetch_pull_requests(self, limit: int = 50) -> list[PRSource]:
         results: list[PRSource] = []
