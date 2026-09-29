@@ -31,7 +31,7 @@
 
 **Documented:** `True`
 
-**Memories:** ['Architecture: choose FastAPI for backend', 'Architecture: choose PostgreSQL']
+**Memories:** ['Architecture: choose FastAPI for backend']
 
 **Citations:** ['1']
 
@@ -79,7 +79,7 @@
 
 **Documented:** `True`
 
-**Memories:** ['Architecture: choose FastAPI for backend', 'Architecture: choose PostgreSQL']
+**Memories:** ['Architecture: choose FastAPI for backend']
 
 **Citations:** ['1']
 
@@ -103,7 +103,7 @@
 
 **Documented:** `True`
 
-**Memories:** ['Architecture: choose FastAPI for backend', 'Architecture: choose PostgreSQL']
+**Memories:** ['Architecture: choose FastAPI for backend']
 
 **Citations:** ['1']
 
@@ -115,7 +115,7 @@
 
 **Documented:** `True`
 
-**Memories:** ['Architecture: choose FastAPI for backend', 'Architecture: choose PostgreSQL']
+**Memories:** ['Architecture: choose FastAPI for backend']
 
 **Citations:** ['1']
 

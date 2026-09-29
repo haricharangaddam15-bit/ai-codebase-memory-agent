@@ -55,11 +55,10 @@
       "actual": {
         "documented": true,
         "answer": "Architecture: choose FastAPI for backend\n\nRationale:\nFastAPI was selected because the project needs:\n\n- typed request and response models\n- asynchronous API endpoints\n- automatic OpenAPI documentation\n- strong integration with Pydantic\n\nThe typed API contracts are particularly useful because the ingestion,\nmemory, and Q&A layers exchange structured data.\n\nEvidence:\nFastAPI was selected because the project needs:\n\n- typed request and response models\n- asynchronous API endpoints\n- automatic OpenAPI documentation\n- strong integration with Pydantic\n\nThe typed API contracts are particularly useful because the ingestion,\nmemory, and Q&A layers exchange structured data.",
-        "memory_count": 2,
+        "memory_count": 1,
         "citation_count": 1,
         "memory_titles": [
-          "Architecture: choose FastAPI for backend",
-          "Architecture: choose PostgreSQL"
+          "Architecture: choose FastAPI for backend"
         ],
         "citation_source_ids": [
           "1"
@@ -168,11 +167,10 @@
       "actual": {
         "documented": true,
         "answer": "Architecture: choose FastAPI for backend\n\nRationale:\nFastAPI was selected because the project needs:\n\n- typed request and response models\n- asynchronous API endpoints\n- automatic OpenAPI documentation\n- strong integration with Pydantic\n\nThe typed API contracts are particularly useful because the ingestion,\nmemory, and Q&A layers exchange structured data.\n\nEvidence:\nFastAPI was selected because the project needs:\n\n- typed request and response models\n- asynchronous API endpoints\n- automatic OpenAPI documentation\n- strong integration with Pydantic\n\nThe typed API contracts are particularly useful because the ingestion,\nmemory, and Q&A layers exchange structured data.",
-        "memory_count": 2,
+        "memory_count": 1,
         "citation_count": 1,
         "memory_titles": [
-          "Architecture: choose FastAPI for backend",
-          "Architecture: choose PostgreSQL"
+          "Architecture: choose FastAPI for backend"
         ],
         "citation_source_ids": [
           "1"
@@ -225,11 +223,10 @@
       "actual": {
         "documented": true,
         "answer": "Architecture: choose FastAPI for backend\n\nRationale:\nFastAPI was selected because the project needs:\n\n- typed request and response models\n- asynchronous API endpoints\n- automatic OpenAPI documentation\n- strong integration with Pydantic\n\nThe typed API contracts are particularly useful because the ingestion,\nmemory, and Q&A layers exchange structured data.\n\nEvidence:\nFastAPI was selected because the project needs:\n\n- typed request and response models\n- asynchronous API endpoints\n- automatic OpenAPI documentation\n- strong integration with Pydantic\n\nThe typed API contracts are particularly useful because the ingestion,\nmemory, and Q&A layers exchange structured data.",
-        "memory_count": 2,
+        "memory_count": 1,
         "citation_count": 1,
         "memory_titles": [
-          "Architecture: choose FastAPI for backend",
-          "Architecture: choose PostgreSQL"
+          "Architecture: choose FastAPI for backend"
         ],
         "citation_source_ids": [
           "1"
@@ -254,11 +251,10 @@
       "actual": {
         "documented": true,
         "answer": "Architecture: choose FastAPI for backend\n\nRationale:\nFastAPI was selected because the project needs:\n\n- typed request and response models\n- asynchronous API endpoints\n- automatic OpenAPI documentation\n- strong integration with Pydantic\n\nThe typed API contracts are particularly useful because the ingestion,\nmemory, and Q&A layers exchange structured data.\n\nEvidence:\nFastAPI was selected because the project needs:\n\n- typed request and response models\n- asynchronous API endpoints\n- automatic OpenAPI documentation\n- strong integration with Pydantic\n\nThe typed API contracts are particularly useful because the ingestion,\nmemory, and Q&A layers exchange structured data.",
-        "memory_count": 2,
+        "memory_count": 1,
         "citation_count": 1,
         "memory_titles": [
-          "Architecture: choose FastAPI for backend",
-          "Architecture: choose PostgreSQL"
+          "Architecture: choose FastAPI for backend"
         ],
         "citation_source_ids": [
           "1"

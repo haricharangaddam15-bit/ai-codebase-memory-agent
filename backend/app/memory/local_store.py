@@ -64,7 +64,7 @@ def normalize_source_url(value: str) -> str:
 
 
 def tokenize(value: str) -> list[str]:
-    words = re.findall(r"[a-z0-9][a-z0-9._-]*", value.lower())
+    words = re.findall(r"[a-z0-9]+", value.lower())
 
     return [
         word
@@ -195,19 +195,14 @@ class LocalMemoryStore:
                 + alternatives_matches * 6
             )
 
-            # Require at least one meaningful query term to occur
-            # in the identity of the memory when the query contains
-            # a specific technology/entity.
-            identity_matches = (
-                query_terms
-                & (
-                    searchable_fields["title"]
-                    | searchable_fields["module"]
-                    | searchable_fields["file_paths"]
-                )
+            # Require at least one query term to identify the
+            # documented decision in the memory title. Module and
+            # file-path matches alone can be too generic and may
+            # incorrectly infer an undocumented rationale.
+            title_identity_matches = (
+                query_terms & searchable_fields["title"]
             )
-
-            if not identity_matches:
+            if not title_identity_matches:
                 continue
 
             scored.append(
