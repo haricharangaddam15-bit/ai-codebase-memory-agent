@@ -1,9 +1,12 @@
 from pathlib import Path
+import os
+import subprocess
 
 from fastapi import APIRouter, HTTPException
 
 from backend.app.agents.qa_agent import QAAgent
 from backend.app.agents.capture_agent import CaptureAgent
+from backend.app.ingestion.github_source import GitHubSource
 from backend.app.agents.pr_review_agent import PRReviewAgent
 from backend.app.memory.capture_store import CaptureStore
 from backend.app.schemas.capture import (
@@ -16,6 +19,10 @@ from backend.app.schemas.review import (
     PRReviewRequest,
     PRReviewResponse,
     PRReviewComment,
+)
+from backend.app.schemas.github_review import (
+    GitHubPRReviewRequest,
+    GitHubPRReviewResponse,
 )
 
 
@@ -84,6 +91,90 @@ def review_pull_request(request: PRReviewRequest):
     )
 
     return PRReviewResponse(
+        reviewed=True,
+        memory_enabled=True,
+        comments=[
+            PRReviewComment(**comment)
+            for comment in comments
+        ],
+    )
+
+
+@router.post(
+    "/review/github",
+    response_model=GitHubPRReviewResponse,
+)
+def review_github_pull_request(
+    request: GitHubPRReviewRequest,
+):
+    if not request.memory_enabled:
+        return GitHubPRReviewResponse(
+            repository=request.repository,
+            pr_number=request.pr_number,
+            pr_title="",
+            pr_url="",
+            changed_files=[],
+            reviewed=False,
+            memory_enabled=False,
+            comments=[],
+        )
+
+    token = os.getenv("GITHUB_TOKEN", "").strip()
+
+    if not token:
+        try:
+            result = subprocess.run(
+                ["gh", "auth", "token"],
+                capture_output=True,
+                text=True,
+                check=True,
+            )
+            token = result.stdout.strip()
+        except (
+            FileNotFoundError,
+            subprocess.CalledProcessError,
+        ) as exc:
+            raise HTTPException(
+                status_code=503,
+                detail=(
+                    "GitHub authentication is unavailable. "
+                    "Set GITHUB_TOKEN or authenticate with gh."
+                ),
+            ) from exc
+
+    try:
+        source = GitHubSource(
+            token=token,
+            repository=request.repository,
+        )
+
+        pr = source.fetch_pull_request(
+            request.pr_number,
+        )
+
+        diff = source.fetch_pull_request_diff(
+            request.pr_number,
+        )
+
+    except Exception as exc:
+        raise HTTPException(
+            status_code=502,
+            detail=f"Unable to fetch GitHub pull request: {exc}",
+        ) from exc
+
+    memories = memory_store.load()
+
+    comments = pr_review_agent.review(
+        diff=diff,
+        memories=memories,
+    )
+
+    return GitHubPRReviewResponse(
+        repository=request.repository,
+        pr_number=pr.number,
+        pr_title=pr.title,
+        pr_url=pr.url,
+        changed_files=pr.changed_files,
         reviewed=True,
         memory_enabled=True,
         comments=[
